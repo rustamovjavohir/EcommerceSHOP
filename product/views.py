@@ -10,6 +10,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 # from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Product, SoldProducts, Category
 from .serializers import ProductSerializer, SoldProductsSerializer, CategorySerializer
@@ -20,9 +21,9 @@ class ProductViewset(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = (filters.SearchFilter,)
-    permission_classes = [AllowAny, ]
-    # permission_classes = [IsAdminUser, ]
-    # authentication_classes = [JWTAuthentication, ]
+    # permission_classes = [AllowAny, ]
+    permission_classes = [IsAdminUser, ]
+    authentication_classes = [JWTAuthentication, ]
     pagination_class = ProductPagination
     parser_classes = [JSONParser, ]
 
