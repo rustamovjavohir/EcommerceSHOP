@@ -28,8 +28,6 @@ class TestProduct(APITestCase):
         # print(resolve(self.url))
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # import pdb
-        # pdb.set_trace()
 
     def test_create_product(self):
         response = self.client.post(self.list_url, data=self.data, format='json')
@@ -37,7 +35,6 @@ class TestProduct(APITestCase):
         # pdb.set_trace()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get('name'), 'product1')
-        # self.assertDictEqual(response.data, self.data)
 
     def test_update_product(self):
         product = Product.objects.create(name='product1', category_id=self.category, product_count=5,
@@ -53,7 +50,4 @@ class TestProduct(APITestCase):
         response = self.client.delete(reverse('product-detail', kwargs={'pk': product.id}),
                                       data=self.update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        # import pdb
-        # pdb.set_trace()
         self.assertEqual(Product.objects.count(), 0)
-        # self.assertIsNone(Product.objects.filter(id=product.id).first())
